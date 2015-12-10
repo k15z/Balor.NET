@@ -50,8 +50,8 @@ namespace Balor
         {
             this.INPUT = INPUT;
             this.OUTPUT = OUTPUT;
-            this.r = new Random();
 
+            r = new Random();
             input = new double[INPUT];
             output = new double[OUTPUT];
             biases = new double[OUTPUT];
