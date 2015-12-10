@@ -107,7 +107,8 @@ namespace Balor
                 double deriv = error[j];
                 if (output[j] <= 0)
                     deriv *= RELU_SLOPE;
-                biases[j] -= LEARNING_RATE * deriv;
+                if (r.NextDouble() < DROP_OUT_RATIO)
+                    biases[j] -= LEARNING_RATE * deriv;
                 for (int i = 0; i < INPUT; i++)
                 {
                     if (r.NextDouble() < DROP_OUT_RATIO)
