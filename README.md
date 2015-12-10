@@ -17,5 +17,5 @@ DataFlatten l3 = new DataFlatten(14, 14, 5);
 FeedForward l4 = new FeedForward(14*14*5, 10);
 
 var OUTPUT = l4.feed(l3.feed(l2.feed(l1.feed(INPUT))))
-l1.train(l2.train(l3.train(l4.train(EXPECTED - OUTPUT))))
+l1.train(l2.train(l3.train(l4.train(OUTPUT - EXPECTED))))
 ```

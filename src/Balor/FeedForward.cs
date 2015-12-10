@@ -16,7 +16,7 @@ namespace Balor
     /// 	FeedForward l1 = new FeedForward (4, 10);
     /// 	FeedForward l2 = new FeedForward (10, 1);
     /// 	double[] result = l2.feed(l1.feed(input))
-    /// 	double[] error = expected - result;
+    /// 	double[] error = result - expected;
     /// 	l1.train(l2.train(error))
     /// </code>
     /// </example>
