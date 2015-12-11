@@ -72,10 +72,10 @@ namespace Balor.CLI
             int score = int.MinValue;
             int total = int.MaxValue;
             int border = (int)(input.Length * SPLIT);
-            Convolution l1 = new Convolution(28, 28, 1, 5, 5, 7);
-            Subsampling l2 = new Subsampling(28, 28, 7, 2, 2);
-            DataFlatten l3 = new DataFlatten(14, 14, 7);
-            FeedForward l4 = new FeedForward(14 * 14 * 7, 10);
+            Convolution l1 = new Convolution(28, 28, 1, 5, 5, 5);
+            Subsampling l2 = new Subsampling(28, 28, 5, 2, 2);
+            DataFlatten l3 = new DataFlatten(14, 14, 5);
+            FeedForward l4 = new FeedForward(14 * 14 * 5, 10);
 
             for (int epoch = 0; epoch < EPOCHS && score != total; epoch++)
             {

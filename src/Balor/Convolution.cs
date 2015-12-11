@@ -15,9 +15,9 @@ namespace Balor
         const double RELU_SLOPE = 0.000001;
         const double CLIPPED_MAX = 10000.0;
         const double CLIPPED_MIN = .000001;
-        const double LEARNING_RATE = 0.001;
-        const double MOMENTUM_RATIO = 0.10;
-        const double DROP_OUT_RATIO = 0.10;
+        const double LEARNING_RATE = 0.0001;
+        const double MOMENTUM_RATIO = 0.100;
+        const double DROP_OUT_RATIO = 0.100;
 
         Random r;
         int WIDTH;
