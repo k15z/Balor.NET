@@ -17,6 +17,6 @@ A small convolutional neural network with a single convolution  and a single fee
  * data set size: 60000
  * training size: 42000
  * testing size: 18000
- * best score: 80%
- * average score: 79%
+ * best score: 91%
+ * average score: 84%
  * training time: 10min
