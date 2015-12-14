@@ -27,7 +27,7 @@ namespace Balor
         const double CLIPPED_MAX = 10000.0;
         const double CLIPPED_MIN = .000001;
         const double LEARNING_RATE = 0.001;
-        const double MOMENTUM_RATIO = 0.10;
+        const double RMS_RATEDECAY = 0.10;
         const double DROP_OUT_RATIO = 0.10;
 
         Random r;
@@ -37,7 +37,7 @@ namespace Balor
         double[] output;
         double[] biases;
         double[,] weight;
-        double[,] deltaw;
+        double[,] rmsprp;
 
         /// <summary>
         /// Create a new instance of the <see cref="Cyclops.Core.FeedForward"/> 
@@ -56,7 +56,7 @@ namespace Balor
             output = new double[OUTPUT];
             biases = new double[OUTPUT];
             weight = new double[INPUT, OUTPUT];
-            deltaw = new double[INPUT, OUTPUT];
+            rmsprp = new double[INPUT, OUTPUT];
 
             for (int j = 0; j < OUTPUT; j++)
             {
@@ -104,19 +104,20 @@ namespace Balor
             double[] _error = new double[INPUT];
             for (int j = 0; j < OUTPUT; j++)
             {
-                double deriv = error[j];
+                double pderiv = error[j];
                 if (output[j] <= 0)
-                    deriv *= RELU_SLOPE;
+                    pderiv *= RELU_SLOPE;
                 if (r.NextDouble() < DROP_OUT_RATIO)
-                    biases[j] -= LEARNING_RATE * deriv;
+                    biases[j] -= LEARNING_RATE * pderiv;
                 for (int i = 0; i < INPUT; i++)
                 {
                     if (r.NextDouble() < DROP_OUT_RATIO)
                     {
-                        deltaw[i, j] = deriv * input[i] + MOMENTUM_RATIO * deltaw[i, j];
-                        weight[i, j] -= LEARNING_RATE * deltaw[i, j];
+                        var deriv = pderiv * input[i];
+                        rmsprp[i, j] = RMS_RATEDECAY * rmsprp[i, j] + (1 - RMS_RATEDECAY) * deriv * deriv;
+                        weight[i, j] -= LEARNING_RATE * deriv / Math.Sqrt(rmsprp[i, j] + 1e-5);
                     }
-                    _error[i] += deriv * weight[i, j];
+                    _error[i] += pderiv * weight[i, j];
                 }
             }
             return _error;
